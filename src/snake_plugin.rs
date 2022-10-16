@@ -44,7 +44,7 @@ impl Plugin for SnakePlugin {
                 half_cell: cell_size / 2.,
                 origin: (self.rect.bottom, self.rect.left),
             })
-            .insert_resource(GameTimerResource(Timer::from_seconds(1.0, true)))
+            .insert_resource(GameTimerResource(Timer::from_seconds(0.5, true)))
             .init_resource::<PbrBundles>()
             .add_event::<GameOverEvent>()
             .add_event::<FoodAteEvent>()
