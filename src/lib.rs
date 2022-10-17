@@ -17,11 +17,12 @@ impl Plugin for MainPlugin {
 
         let text_height = 30.;
 
+        let padding = 5.;
         // calculate the region where to put the game
         let top = window_description.height / 2. - text_height;
-        let bottom = -window_description.height / 2.;
-        let right = window_description.width / 2.;
-        let left = -window_description.width / 2.;
+        let bottom = -window_description.height / 2. + padding;
+        let right = window_description.width / 2. - padding;
+        let left = -window_description.width / 2. + padding;
 
         app.insert_resource(ImageSettings::default_nearest())
             .insert_resource(ScoreResource { score: 0 })
