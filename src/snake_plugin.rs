@@ -61,6 +61,28 @@ impl Plugin for SnakePlugin {
     }
 }
 
+fn change_direction(
+    mut keyboard_input_events: EventReader<KeyboardInput>,
+    mut current_direction: ResMut<Direction>,
+) {
+    let direction = keyboard_input_events
+        .iter()
+        .filter_map(|ki| ki.key_code)
+        .filter_map(|kc| match kc {
+            KeyCode::Up => Some(Direction::Up),
+            KeyCode::Down => Some(Direction::Down),
+            KeyCode::Left => Some(Direction::Left),
+            KeyCode::Right => Some(Direction::Right),
+            _ => None,
+        })
+        .last();
+
+    *current_direction = match direction {
+        None => return,
+        Some(d) => d,
+    };
+}
+
 fn game_tick(
     time: Res<Time>,
     mut game_timers: ResMut<GameTimerResource>,
@@ -166,28 +188,6 @@ fn update_food(
     if snapshot.food_ate {
         food_ate_event_writer.send(FoodAteEvent);
     }
-}
-
-fn change_direction(
-    mut keyboard_input_events: EventReader<KeyboardInput>,
-    mut current_direction: ResMut<Direction>,
-) {
-    let direction = keyboard_input_events
-        .iter()
-        .filter_map(|ki| ki.key_code)
-        .filter_map(|kc| match kc {
-            KeyCode::Up => Some(Direction::Up),
-            KeyCode::Down => Some(Direction::Down),
-            KeyCode::Left => Some(Direction::Left),
-            KeyCode::Right => Some(Direction::Right),
-            _ => None,
-        })
-        .last();
-
-    *current_direction = match direction {
-        None => return,
-        Some(d) => d,
-    };
 }
 
 fn game_over(

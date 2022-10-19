@@ -70,7 +70,7 @@ impl SnakeGame {
         let food_ate = self.on_food(&self.snake_head);
         if food_ate {
             self.increment_size = 1;
-            self.food = self.create_new_food()
+            self.food = self.generate_random_food_position()
         }
 
         self.direction = direction;
@@ -140,7 +140,7 @@ impl SnakeGame {
         }
     }
 
-    fn create_new_food(&self) -> Position {
+    fn generate_random_food_position(&self) -> Position {
         loop {
             let y = fastrand::usize(0..self.map.dimension.0);
             let x = fastrand::usize(0..self.map.dimension.1);
