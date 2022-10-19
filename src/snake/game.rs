@@ -229,7 +229,7 @@ pub struct SnakeGameSnapshot {
 #[cfg(test)]
 mod tests {
     use crate::snake::{
-        common::{CellField, Direction, Position},
+        common::{Direction, Position},
         game::SnakeError,
     };
 
